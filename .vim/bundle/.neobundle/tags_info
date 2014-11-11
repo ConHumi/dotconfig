@@ -1,7 +1,9 @@
 ctrlp.vim
 neobundle.vim
+neocomplete
 neosnippet-snippets
 neosnippet.vim
+tern_for_vim
 vim-colorschemes
 vim-fugitive
 vimshell

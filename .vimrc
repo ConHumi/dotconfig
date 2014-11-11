@@ -1,88 +1,53 @@
-" ‹¤’Êİ’è
-" ------------------------------------------------------------
-set autoread
-set clipboard+=unnamed
+"------------------------------------------------------------
+"Pure Vim Settings
+set clipboard+=unnnamed
 set number
-set browsedir=buffer
 set backup
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
-set undodir=~/.vim/tmp
-set undofile
-set noexpandtab
+set backupdir=/tmp
+set directory=/tmp
+set undodir=/tmp
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
 set autoindent
 set nowrap
-" ESC‚ÅƒnƒCƒ‰ƒCƒg‚ğƒIƒt
-nnoremap <silent> <ESC> <ESC>:noh<CR>
-" ------------------------------------------------------------ 
+syntax on
 
-" NeoBundle‚Ìİ’è
-" ------------------------------------------------------------
+" ESCã§ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’ã‚ªãƒ•
+nnoremap <silent> <ESC> <ESC>:noh<CR>
+"End Pure Vim Settings
+"------------------------------------------------------------
+
+"------------------------------------------------------------
+"NeoBundle Scripts
 if has('vim_starting')
 	set nocompatible               " Be iMproved
+
 	" Required:
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+	set runtimepath+=/home/hyu/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('/home/hyu/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" My Bundles here: 
-
-" Common Tools
-" ------------------------------
-" neosnippet ƒXƒjƒyƒbƒg•âŠ®‚ğ‚µ‚Ä‚­‚ê‚é
-NeoBundleLazy 'Shougo/neosnippet.vim'
+" Add or remove your Bundles here:
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
-" neocomplete •âŠ®‹@”\‹­‰»
-NeoBundleLazy 'Shougo/neocomplete.vim'
-" indentLine ƒCƒ“ƒfƒ“ƒgƒ‰ƒCƒ“‚¾‚º
-NeoBundle 'Yggdroot/indentLine'
-" autoclose •Â‚¶Š‡ŒÊ©“®“ü—Í
-NeoBundle 'Townk/vim-autoclose'
-" vimfiler vim‚Åg‚¦‚éƒGƒNƒXƒvƒ[ƒ‰‚İ‚½‚¢‚È‚â‚Â
-NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+
+NeoBundle 'marijnh/tern_for_vim', {'build':{'others':'npm install'}}
+
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-" unite.vim
-NeoBundle 'Shougo/unite.vim'
-" Unite.vim ‚ÅÅ‹ßg‚Á‚½ƒtƒ@ƒCƒ‹‚ğ•\¦‚Å‚«‚é‚æ‚¤‚É‚·‚é
-NeoBundle 'Shougo/neomru.vim'
-" ƒtƒ@ƒCƒ‹‚ğtree•\¦‚µ‚Ä‚­‚ê‚é
-NeoBundle 'scrooloose/nerdtree'
-" ƒJƒ‰[ƒXƒL[ƒ€ˆê——•\¦‚É Unite.vim ‚ğg‚¤
-NeoBundle 'ujihisa/unite-colorscheme'
-" F‚Ìİ’è
-NeoBundle 'w0ng/vim-hybrid'
-" surround.vim
-NeoBundle 'tpope/vim-surround'
-" ------------------------------
 
-" PythonŠÖ˜A
-" ------------------------------
-" jedi-vim neocomplete‚ğg‚Á‚ÄPython‚Ì•âŠ®‚ğ‚·‚é
-NeoBundleLazy 'davidhalter/jedi-vim'
-" vim-python-pep8-indent Python‚ÌƒCƒ“ƒfƒ“ƒgx‰‡
-NeoBundleLazy 'hynek/vim-python-pep8-indent'
-" ------------------------------
-
-" WEBŠJ”­ŠÖ˜A
-" ------------------------------
-" emmet-vim zencodingŒãŒp
-NeoBundleLazy 'mattn/emmet-vim'
-NeoBundleLazy 'hail2u/vim-css3-syntax'
-NeoBundleLazy 'taichouchou2/html5.vim'
-NeoBundleLazy 'taichouchou2/vim-javascript'
-NeoBundleLazy 'kchmck/vim-coffee-script'
-" ------------------------------
-"
+" Required:
 call neobundle#end()
 
 " Required:
@@ -91,94 +56,115 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
-" ------------------------------------------------------------ 
+"End NeoBundle Scripts
+"------------------------------------------------------------
 
-"neocomplete ‚Ìİ’è
+
+"------------------------------------------------------------
+"Color Scheme Setting
+"
+colorscheme molokai
+"
+"End Color Scheme Setting
+"------------------------------------------------------------
+
+
+"neocomplete ã®è¨­å®š
 " ------------------------------------------------------------
-if neobundle#tap('neocomplete.vim')
-	call neobundle#config({"autoload": {"insert": 1}, 'on_source': ['jedi-vim']})
-	function! neobundle#tapped.hooks.on_source(bundle)
-		""""""""""""""" NeoComplete‚Ìİ’è 
-		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-		" Disable AutoComplPop.
-		let g:acp_enableAtStartup = 0
-		" Use neocomplete.
-		let g:neocomplete#enable_at_startup = 1
-		" Use smartcase.
-		let g:neocomplete#enable_smart_case = 1
-		" Set minimum syntax keyword length.
-		let g:neocomplete#sources#syntax#min_keyword_length = 3
-		let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-		" Define dictionary.
-		let g:neocomplete#sources#dictionary#dictionaries = {
-					\ 'default' : '',
-					\ 'vimshell' : $HOME.'/.vimshell_hist',
-					\ 'scheme' : $HOME.'/.gosh_completions'
-					\ }
-		" Define keyword.
-		if !exists('g:neocomplete#keyword_patterns')
-			let g:neocomplete#keyword_patterns = {}
-		endif
-		let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-		" Plugin key-mappings.
-		inoremap <expr><C-g>     neocomplete#undo_completion()
-		inoremap <expr><C-l>     neocomplete#complete_common_string()
-		" Recommended key-mappings.
-		" <CR>: close popup and save indent.
-		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-		function! s:my_cr_function()
-			return neocomplete#close_popup() . "\<CR>"
-			" For no inserting <CR> key.
-			"return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-		endfunction
-		" <TAB>: completion.
-		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-		" <C-h>, <BS>: close popup and delete backword char.
-		inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-		inoremap <expr><C-y>  neocomplete#close_popup()
-		inoremap <expr><C-e>  neocomplete#cancel_popup()
-		" Close popup by <Space>.
-		"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-		" For cursor moving in insert mode(Not recommended)
-		"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-		"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-		"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-		"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-		" Or set this.
-		"let g:neocomplete#enable_cursor_hold_i = 1
-		" Or set this.
-		"let g:neocomplete#enable_insert_char_pre = 1
-		" AutoComplPop like behavior.
-		"let g:neocomplete#enable_auto_select = 1
-		" Shell like behavior(not recommended).
-		"set completeopt+=longest
-		"let g:neocomplete#enable_auto_select = 1
-		"let g:neocomplete#disable_auto_complete = 1
-		"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-		" Enable omni completion.
-		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-		"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-		" Enable heavy omni completion.
-		if !exists('g:neocomplete#sources#omni#input_patterns')
-			let g:neocomplete#sources#omni#input_patterns = {}
-		endif
-		"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-		"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-		"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-		" For perlomni.vim setting.
-		" https://github.com/c9s/perlomni.vim
-		let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-	endfunction
-	call neobundle#untap()
+"if neobundle#tap('neocomplete')
+"	call neobundle#config({"autoload": {"insert": 1}})
+"	function! neobundle#tapped.hooks.on_source(bundle)
+""""""""""""""" NeoCompleteã®è¨­å®š 
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+			\ 'default' : '',
+			\ 'vimshell' : $HOME.'/.vimshell_hist',
+			\ 'scheme' : $HOME.'/.gosh_completions'
+			\ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+	let g:neocomplete#keyword_patterns = {}
 endif
-" ------------------------------------------------------------
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" NeoSnippet‚Ìİ’è
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	return neocomplete#close_popup() . "\<CR>"
+	" For no inserting <CR> key.
+	"return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+	let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"	endfunction
+"	call neobundle#untap()
+"endif
 " ------------------------------------------------------------
+  
+" ------------------------------------------------------------
+" NeoSnippetã®è¨­å®š
 if neobundle#tap('neosnippet.vim')
 	call neobundle#config({"autoload": {"insert": 1}})
 	function! neobundle#tapped.hooks.on_source(bundle)
@@ -196,145 +182,11 @@ if neobundle#tap('neosnippet.vim')
 	endfunction
 	call neobundle#untap()
 endif
-" ------------------------------------------------------------
-" Unite.vim ‚Ìİ’è
-" ------------------------------------------------------------
-" “ü—Íƒ‚[ƒh‚ÅŠJn‚·‚é
-let g:unite_enable_start_insert=1
-" ƒoƒbƒtƒ@ˆê——
-noremap <C-P> :Unite buffer<CR>
-" ƒtƒ@ƒCƒ‹ˆê——
-noremap <C-N> :Unite -buffer-name=file file<CR>
-" Å‹ßg‚Á‚½ƒtƒ@ƒCƒ‹‚Ìˆê——
-noremap <C-Z> :Unite file_mru<CR>
-" sources‚ğu¡ŠJ‚¢‚Ä‚¢‚éƒtƒ@ƒCƒ‹‚ÌƒfƒBƒŒƒNƒgƒŠv‚Æ‚·‚é
-noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
-" ƒEƒBƒ“ƒhƒE‚ğ•ªŠ„‚µ‚ÄŠJ‚­
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ƒEƒBƒ“ƒhƒE‚ğc‚É•ªŠ„‚µ‚ÄŠJ‚­
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCƒL[‚ğ2‰ñ‰Ÿ‚·‚ÆI—¹‚·‚é
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+" End NeoSnippetã®è¨­å®š
 " ------------------------------------------------------------
 
-" indentLine ‚Ìİ’è
-" ------------------------------------------------------------
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#A4E57E'
-let g:indentLine_color_tty_light = 7
-let g:indentLine_color_dark = 1
-set list listchars=tab:\|\ 
-" ------------------------------------------------------------
 
-" VimFiler‚Ìİ’è
-" ------------------------------------------------------------
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern='\(^\.\|\~$\|\.pyc$\|\.[oad]$\)'
-" ------------------------------------------------------------
-
-" NERDTree ‚Ìİ’è
-" ------------------------------------------------------------
-let g:NERDTreeShowBookmarks = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinSize=20
-if !argc()
-	autocmd VimEnter * NERDTree|normal gg3j
-endif
-" ------------------------------------------------------------
-
-" PythonŠÖŒW‚Ìİ’è
-" ------------------------------------------------------------
-" Ctr+P‚ÅPython‚ğÀs‚·‚é‚ç‚µ‚¢
-"function! s:Exec()
-"	exe "!" . &ft . " %"        
-"endfunction         
-"command! Exec call <SID>Exec() 
-"map <silent> <C-P> :call <SID>Exec()<CR>
-nmap <F5> : !C:\Python27\python.exe %
-
-" vim-python-pep8-indent ‚Ìİ’è
-if neobundle#tap('vim-python-pep8-indent')
-	call neobundle#config({"autoload": {"filetypes": ["python", "python3"]}})
-	call neobundle#untap()
-endif
-"jedi-vim‚Ìİ’è
-if neobundle#tap('jedi-vim')
-	call neobundle#config({"autoload": {"filetypes": ["python", "python3", "djangohtml"]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-
-		autocmd FileType python setlocal omnifunc=jedi#completions
-		let g:jedi#completions_enabled = 0
-		let g:jedi#auto_vim_configuration = 0
-		"let g:jedi#popup_select_first = 0
-		let g:jedi#rename_command = "<leader>R"
-		if !exists('g:neocomplete#force_omni_input_patterns')
-			let g:neocomplete#force_omni_input_patterns = {}
-		endif
-		let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-	endfunction
-	call neobundle#untap()
-endif
-" ------------------------------------------------------------
-
-" WEBŠÖŒW‚Ìİ’è
-" ------------------------------------------------------------
-" ƒRƒ}ƒ“ƒh‚ğ‘Å‚Â‚Æ“WŠJ‚µ‚Ä‚­‚ê‚é‚â‚Â
-if neobundle#tap('emmet-vim')
-	call neobundle#config({"autoload": {"filetypes": ["php", "html", "ruby", "css"]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-		let g:user_emmet_mode = 'iv'
-		let g:user_emmet_leader_key = '<C-Y>'
-		let g:use_emmet_complete_tag = 1
-		let g:user_emmet_settings = {
-			\	'lang' : 'ja',
-			\	'html' : {'filters' : 'html', },
-			\	'css' : { 'filters' : 'fc', }, 
-			\	'php' : { 'extends' : 'html', 'filters' : 'html', },
-			\	}
-	endfunction
-	call neobundle#untap()
-endif
-" surround.vim ƒ^ƒO‚ğFXo—ˆ‚é
-if neobundle#tap('vim-surround')
-	call neobundle#config({"autoload": {"filetypes": ["php", "html", "javascript",]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-
-	endfunction
-	call neobundle#untap()
-endif
-
-if neobundle#tap('vim-css3-syntax')
-	call neobundle#config({"autoload": {"filetypes": ["php", "html"]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-
-	endfunction
-	call neobundle#untap()
-endif
-
-if neobundle#tap('html5.vim')
-	call neobundle#config({"autoload": {"filetypes": ["php", "html"]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-
-	endfunction
-	call neobundle#untap()
-endif
-
-if neobundle#tap('vim-javascript')
-	call neobundle#config({"autoload": {"filetypes": ["php", "html", "javascript"]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-
-	endfunction
-	call neobundle#untap()
-endif
-
-if neobundle#tap('vim-coffee-script')
-	call neobundle#config({"autoload": {"filetypes": ["php", "html"]}})
-	function! neobundle#tapped.hooks.on_source(bundle)
-
-	endfunction
-	call neobundle#untap()
-endif
-" ------------------------------------------------------------ 
+"------------------------------------------------------------
+"Add New Setting
+"
+"------------------------------------------------------------

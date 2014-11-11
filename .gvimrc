@@ -1,5 +1,2 @@
-set guifont=Meiryoke_Console:h12:cSHIFTJIS
-" カラースキームの設定
-"colorscheme jellybeans
+set guifont=Ricty:h12:cSHIFTJIS
 colorscheme hybrid
-
