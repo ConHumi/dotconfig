@@ -1,2 +1,2 @@
 set guifont=Ricty:h12:cSHIFTJIS
-colorscheme hybrid
+colorscheme molokai

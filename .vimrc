@@ -1,3 +1,8 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""" This is Con_Humi's VIM Settings File. """""""""""
+"""""""""""~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "------------------------------------------------------------
 "Pure Vim Settings
 set clipboard+=unnnamed
@@ -11,11 +16,21 @@ set shiftwidth=4
 set softtabstop=0
 set autoindent
 set nowrap
+set fenc=utf-8
 syntax on
 
 " ESCでハイライトをオフ
 nnoremap <silent> <ESC> <ESC>:noh<CR>
+
 "End Pure Vim Settings
+"------------------------------------------------------------
+
+"------------------------------------------------------------
+"Color Scheme Setting
+"
+colorscheme molokai
+"
+"End Color Scheme Setting
 "------------------------------------------------------------
 
 "------------------------------------------------------------
@@ -24,11 +39,11 @@ if has('vim_starting')
 	set nocompatible               " Be iMproved
 
 	" Required:
-	set runtimepath+=/home/hyu/.vim/bundle/neobundle.vim/
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('/home/hyu/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -58,16 +73,6 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts
 "------------------------------------------------------------
-
-
-"------------------------------------------------------------
-"Color Scheme Setting
-"
-colorscheme molokai
-"
-"End Color Scheme Setting
-"------------------------------------------------------------
-
 
 "neocomplete の設定
 " ------------------------------------------------------------
