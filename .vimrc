@@ -56,10 +56,18 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
-
 NeoBundle 'marijnh/tern_for_vim', {'build':{'others':'npm install'}}
-
+NeoBundle 'https://github.com/fuenor/im_control.vimhttps://github.com/fuenor/im_control.vim'
 " You can specify revision/branch/tag.
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
 " Required:
@@ -190,6 +198,28 @@ endif
 " End NeoSnippetの設定
 " ------------------------------------------------------------
 
+"------------------------------------------------------------
+" im_control.vim の設定
+" 「日本語入力固定モード」の動作モード
+let IM_CtrlMode = 1
+" 「日本語入力固定モード」切替キー
+inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+
+" IBus 1.5以降
+function! IMCtrl(cmd)
+  let cmd = a:cmd
+  if cmd == 'On'
+    let res = system('ibus engine "mozc-jp"')
+  elseif cmd == 'Off'
+    let res = system('ibus engine "xkb:jp::jpn"')
+  endif
+  return ''
+endfunction
+
+" <ESC>押下後のIM切替開始までの反応が遅い場合はttimeoutlenを短く設定してみてください。
+" IMCtrl()のsystem()コマンド実行時に&を付けて非同期で実行するという方法でも体感速度が上がる場合があります。
+set timeout timeoutlen=3000 ttimeoutlen=100 "
+"------------------------------------------------------------
 
 "------------------------------------------------------------
 "Add New Setting
