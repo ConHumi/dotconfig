@@ -10,8 +10,8 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-let s:rc_dir = expand('~/.config/nvim')
-"let s:dein_dir = expand('~/.config/nvim/dein')
+let s:rc_dir = expand('$HOME') . '/.config/nvim'
+"let s:dein_dir = expand('$HOME') . '/.config/nvim/dein'
 let s:dein_dir = s:rc_dir . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -28,8 +28,8 @@ if dein#load_state(s:dein_dir)
 	call dein#begin(s:dein_dir)
 
 	" 管理するプラグインを記述したファイル
-	let s:toml = '~/.config/nvim/.dein.toml'
-	let s:lazy_toml = '~/.config/nvim/.dein_lazy.toml'
+	let s:toml = s:rc_dir . '.dein.toml'
+	let s:lazy_toml = s:rc_dir . '.dein_lazy.toml'
 
 	" 読み込み，キャッシュは :call dein#clear_cache() で消せる
 	call dein#load_toml(s:toml, {'lazy':0})
@@ -42,12 +42,12 @@ endif
 filetype plugin indent on
 
 " If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
+if dein#check_install()
+  call dein#install()
+endif
 
 "End dein Scripts-------------------------
 
-syntax on
-set number
+"syntax on
+"set number
 
