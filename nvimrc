@@ -2,7 +2,8 @@ if has('nvim')
 	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
+let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python3'
+let g:python_host_prog = expand('$HOME') . '/.pyenv/shims/python2'
 
 "dein Scripts-----------------------------
 if &compatible
