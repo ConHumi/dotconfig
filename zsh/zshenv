@@ -1,0 +1,11 @@
+# virtualenv
+export WORKON_HOME=$HOME/.dots/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+source /usr/local/bin/virtualenvwrapper.sh
+
+export PATH="$PATH":/Users/yhojo/local/android-sdk-macosx/tools/
+export PATH="$PATH":/Users/yhojo/local/android-sdk-macosx/platform-tools/
+
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
