@@ -48,3 +48,11 @@ rm -f $HOME/.vim/.dein.toml
 cp ../../vim/dein.toml $HOME/.vim/.dein.toml
 rm -f $HOME/.vim/.dein_lazy.toml
 cp ../../vim/dein_lazy.toml $HOME/.vim/.dein_lazy.toml
+
+# tmux の設定
+if [ ! `which tmux` ]; then
+	brew install tmux	
+fi
+
+rm -f $HOME/.tmux.conf
+cp ../../tmux/tmux.conf $HOME/.tmux.conf
