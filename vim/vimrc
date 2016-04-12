@@ -1,3 +1,60 @@
+if has('nvim')
+	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+	let s:rc_dir = expand('$HOME') . '/.config/nvim'
+else
+	" vim と nvim でコンフィグファイルの置き場所がことなる
+	let s:rc_dir = expand('$HOME') . '/.vim'
+endif
+
+let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python3'
+let g:python_host_prog = expand('$HOME') . '/.pyenv/shims/python2'
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+let s:dein_dir = s:rc_dir . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" なければディレクトリ作成
+if !isdirectory(s:dein_dir)
+	execute '!mkdir -p ' . s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+endif
+
+" なければ git clone "
+if !isdirectory(s:dein_repo_dir)
+	execute '!git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir
+endif
+
+" Required:
+execute 'set runtimepath^=' . s:dein_repo_dir
+
+" Required:
+if dein#load_state(s:dein_dir)
+	call dein#begin(s:dein_dir)
+
+	" 管理するプラグインを記述したファイル
+	let s:toml = s:rc_dir . '/.dein.toml'
+	let s:lazy_toml = s:rc_dir . '/.dein_lazy.toml'
+
+	" 読み込み，キャッシュは :call dein#clear_cache() で消せる
+	call dein#load_toml(s:toml, {'lazy':0})
+	call dein#load_toml(s:lazy_toml, {'lazy':1}) 
+	" Required: 
+	call dein#end() 
+	call dein#save_state() 
+endif 
+" Required:
+filetype plugin indent on
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
 set number
 set backup
 set backupdir=/tmp
@@ -14,155 +71,3 @@ syntax on
 
 " ESCでハイライトをオフ
 nnoremap <silent> <ESC> <ESC>:noh<CR>
-
-"------------------------------
-" neobundle.vim
-"------------------------------
-if has('vim_starting')
-	" bundleで管理するディレクトリを指定
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-" Required:
-call neobundle#begin(expand('~/.vim/.bundle/'))
-
-" neobundle自体をneobundleで管理
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" neocomplete を設定
-NeoBundle 'shougo/neocomplete'
-" NERDTreeを設定
-NeoBundle 'scrooloose/nerdtree'
-" jedi-vimを使う
-NeoBundle 'davidhalter/jedi-vim'
-
-call neobundle#end()
-
-" Requred:
-filetype plugin indent on
-
-NeoBundleCheck
-"------------------------------
-
-
-"------------------------------
-"neocomplete.vim の設定
-"------------------------------
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-			\ 'default' : '',
-			\ 'vimshell' : $HOME.'/.vimshell_hist',
-			\ 'scheme' : $HOME.'/.gosh_completions'
-			\ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-	let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-	" For no inserting <CR> key.
-	"return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-if !exists('g:neocomplete#force_omni_input_patterns')
-	let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-	let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"------------------------------
-
-
-"------------------------------
-" jedi-vim settings
-"------------------------------
-NeoBundleLazy "davidhalter/jedi-vim", {
-			\ "autoload": { "filetypes": [ "python", "python3", "djangohtml"] }}
-
-if ! empty(neobundle#get("jedi-vim"))
-	let g:jedi#auto_initialization = 1
-	let g:jedi#auto_vim_configuration = 1
-
-	nnoremap [jedi] <Nop>
-	xnoremap [jedi] <Nop>
-	nmap <Leader>j [jedi]
-	xmap <Leader>j [jedi]
-
-	let g:jedi#completions_command = "<C-N>"
-	let g:jedi#goto_assignments_command = "[jedi]g"
-	let g:jedi#goto_definitions_command = "[jedi]d"
-	let g:jedi#documentation_command = "[jedi]K"
-	let g:jedi#rename_command = "[jedi]r"
-	let g:jedi#usages_command = "[jedi]n"
-	let g:jedi#popup_select_first = 0
-	let g:jedi#popup_on_dot = 0
-
-	"autocmd FileType python setlocal completeopt=menu,menuone
-	autocmd FileType python setlocal completeopt-=preview
-
-
-	" for w/ neocomplete
-	if ! empty(neobundle#get("neocomplete.vim"))
-		autocmd FileType python setlocal omnifunc=jedi#completions
-		let g:jedi#completions_enabled = 0
-		let g:jedi#auto_vim_configuration = 0
-		let g:neocomplete#force_omni_input_patterns.python =
-		\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-	endif
-endif
