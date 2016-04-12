@@ -15,7 +15,7 @@ colors
 bindkey -e
 
 # ヒストリの設定
-HISTFILE=~/.dots/zsh/.zsh_history
+HISTFILE=$HOME/.dots/zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
@@ -39,7 +39,7 @@ zstyle ':zle:*' word-style unspecified
 # 補完
 # 補完機能を有効にする
 autoload -Uz compinit
-compinit -d ~/.dots/zsh/compdump
+compinit -d $HOME/.dots/zsh/compdump
 
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -154,8 +154,6 @@ case ${OSTYPE} in
 		#Mac用の設定
 		export CLICOLOR=1
 		alias ls='ls -G -F'
-
-		alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 		alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 		;;
 	linux*)

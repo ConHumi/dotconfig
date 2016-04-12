@@ -19,7 +19,7 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " なければディレクトリ作成
 if !isdirectory(s:dein_dir)
-	execute '!mkdir -p ' . s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+	execute '!mkdir -p ' . s:deia_dir
 endif
 
 " なければ git clone "
