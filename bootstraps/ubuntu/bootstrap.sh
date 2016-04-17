@@ -36,7 +36,7 @@ fi
 if [ ! `which zsh` ]; then
 	sudo apt-get install zsh -y
 	sudo echo "/usr/bin/zsh" >> /etc/shells
-	chsh -s /usr/bin/zsh
+	sudo chsh -s /usr/bin/zsh vagrant
 fi
 
 rm -f $HOME/.zshenv
