@@ -36,17 +36,16 @@ fi
 if [ ! `which zsh` ]; then
 	sudo apt-get install zsh -y
 	sudo echo "/usr/local/bin/zsh" >> /etc/shells
-	chsh -s /usr/local/bin/zsh
+	chsh -s /usr/bin/zsh
 fi
 
 rm -f $HOME/.zshenv
-cp ../../zsh/zshenv $HOME/.zshenv
+cp ../../zsh/ubuntu/zshenv $HOME/.zshenv
 rm -f $HOME/.zprofile
-cp ../../zsh/zprofile $HOME/.zprofile
+cp ../../zsh/ubuntu/zprofile $HOME/.zprofile
 rm -f $HOME/.zshrc
-cp ../../zsh/zshrc $HOME/.zshrc
+cp ../../zsh/ubuntu/zshrc $HOME/.zshrc
 mkdir -p $HOME/.zsh
-
 
 # tmux の設定
 if [ ! `which tmux` ]; then
