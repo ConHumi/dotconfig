@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # nvim configuration
-# nvim が泣ければ設定しない
+# nvim がなければ設定しない
 if [ `which nvim` ]; then
 	mkdir $HOME/.config
 	mkdir -p $HOME/.config/nvim
