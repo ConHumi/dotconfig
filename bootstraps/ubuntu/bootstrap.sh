@@ -35,7 +35,7 @@ fi
 # zsh がなければインストール
 if [ ! `which zsh` ]; then
 	sudo apt-get install zsh -y
-	sudo echo "/usr/local/bin/zsh" >> /etc/shells
+	sudo echo "/usr/bin/zsh" >> /etc/shells
 	chsh -s /usr/bin/zsh
 fi
 
