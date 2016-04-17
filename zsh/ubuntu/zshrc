@@ -15,7 +15,7 @@ colors
 bindkey -e
 
 # ヒストリの設定
-HISTFILE=$HOME/.dots/zsh/.zsh_history
+HISTFILE=$HOME/.zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
@@ -39,7 +39,7 @@ zstyle ':zle:*' word-style unspecified
 # 補完
 # 補完機能を有効にする
 autoload -Uz compinit
-compinit -d $HOME/.dots/zsh/compdump
+compinit -d $HOME/.zsh/compdump
 
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
