@@ -22,11 +22,11 @@ if [ ! `which zsh` ]; then
 fi
 
 rm -f $HOME/.zshenv
-cp ../../zsh/zshenv $HOME/.zshenv
+cp ../../zsh/macosx/zshenv $HOME/.zshenv
 rm -f $HOME/.zprofile
-cp ../../zsh/zprofile $HOME/.zprofile
+cp ../../zsh/macosx/zprofile $HOME/.zprofile
 rm -f $HOME/.zshrc
-cp ../../zsh/zshrc $HOME/.zshrc
+cp ../../zsh/macosx/zshrc $HOME/.zshrc
 mkdir -p $HOME/.zsh
 
 
@@ -56,3 +56,5 @@ fi
 
 rm -f $HOME/.tmux.conf
 cp ../../tmux/tmux.conf $HOME/.tmux.conf
+rm -f $HOME/.tmux/new-session
+cp ../../tmux/tmux/new-session $HOME/.tmux/new-session
